@@ -102,7 +102,7 @@ CODEX_HOME="$HOME/.codex/profiles/work" codex plugin add compound-engineering@co
 
 The marketplace step only makes the plugin available; the plugin install is what activates the native CE skills for that profile.
 
-**Another editor or CLI?** Kimi Code CLI, Cline, Grok Build CLI, Devin CLI, GitHub Copilot, Factory Droid, Qwen Code, OpenCode, Pi, oh-my-pi (omp), and Antigravity CLI are all supported — see [More install options](#more-install-options).
+**Another editor or CLI?** Kimi Code CLI, Cline, Grok Build CLI, Devin CLI, GitHub Copilot, Factory Droid, Qwen Code, OpenCode, Pi, oh-my-pi (omp), Antigravity CLI, and Kiro CLI are all supported — see [More install options](#more-install-options).
 
 ---
 
@@ -401,6 +401,19 @@ agy plugin install ./compound-engineering-plugin
 The bundled `.agy/` directory remains a compatibility entry point (`agy plugin install ./compound-engineering-plugin/.agy`). `agy` also loads `GEMINI.md` workspace context from the checkout.
 
 See [`.agy/INSTALL.md`](.agy/INSTALL.md) for pinning, local development, uninstall, and legacy Gemini import.
+
+### Kiro CLI
+
+Kiro CLI (`kiro-cli`) loads Compound Engineering through its native **skills** discovery — the same `SKILL.md` directories shipped in this repository's `skills/` folder, with no converter or generated copy step. Clone the repo, then run the installer:
+
+```bash
+git clone https://github.com/EveryInc/compound-engineering-plugin
+./compound-engineering-plugin/.kiro-plugin/scripts/install-skills.sh --global
+```
+
+This symlinks each CE skill into `~/.kiro/skills/`, where the Kiro default agent already discovers skills via `skill://~/.kiro/skills/*/SKILL.md`. Use `--project` to install into `./.kiro/skills/` for the current project instead. Start a new Kiro CLI session, then type `/ce-` and press Tab (or run `/prompts`) to see the skills; invoke one as `/ce-plan <your request>`.
+
+Kiro invokes skills explicitly as `/skill-name` slash commands rather than auto-activating from description matches, so manual-only skills (`disable-model-invocation: true`) are linked by default and only run when you type the command. Pass `--exclude-manual` to keep them out. See [`.kiro-plugin/INSTALL.md`](.kiro-plugin/INSTALL.md) for pinning, local development, verification, and uninstall. This is a community-maintained integration; Kiro CLI is not one of the officially listed hosts above.
 
 ---
 
